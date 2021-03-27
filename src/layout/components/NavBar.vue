@@ -1,8 +1,8 @@
 <template>
   <div class="nav">
-    <router-link to=""><icon name="total"></icon></router-link>
-    <router-link to=""><icon name="addrecord"></icon></router-link>
-    <router-link to=""><icon name="chart"></icon></router-link>
+    <router-link to="/total"><icon name="total"></icon></router-link>
+    <router-link to="/add"><icon name="addrecord"></icon></router-link>
+    <router-link to="/chart"><icon name="chart"></icon></router-link>
   </div>
 </template>
 
