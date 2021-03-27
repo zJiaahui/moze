@@ -1,5 +1,5 @@
 <template>
-<div>main</div>
+<div class="main">main</div>
 </template>
 
 <script>
@@ -9,5 +9,9 @@ name: "appMain"
 </script>
 
 <style scoped>
-
+.main{
+  height: 100%;
+  height: 100%;
+  background-color:  #353445;
+}
 </style>

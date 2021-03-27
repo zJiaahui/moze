@@ -1,9 +1,12 @@
 <template>
   <div class="layout">
-    <app-main></app-main>
-    <nav-bar></nav-bar>
+    <div class="main">
+      <app-main></app-main>
+    </div>
+    <div class="nav">
+      <nav-bar></nav-bar>
+    </div>
   </div>
-
 </template>
 
 <script>
@@ -20,9 +23,15 @@ export default {
 </script>
 
 <style scoped lang="scss">
-.layout{
+.layout {
+  display: flex;
+  flex-direction: column;
   height: 100vh;
-  background-color: red;
+  flex-grow: 1;
+
+  > .main {
+    flex-grow: 1;
+  }
 }
 
 </style>
