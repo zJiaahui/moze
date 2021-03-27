@@ -4,7 +4,7 @@
 
 <script>
 export default {
-  name: "c"
+  name: "chart"
 }
 </script>
 
