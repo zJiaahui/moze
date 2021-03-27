@@ -1,13 +1,28 @@
 <template>
-$END$
+  <div class="layout">
+    <app-main></app-main>
+    <nav-bar></nav-bar>
+  </div>
+
 </template>
 
 <script>
+import appMain from "./components/AppMain";
+import navBar from "./components/NavBar"
+
 export default {
-name: "index"
+  name: "Layout",
+  components: {
+    appMain,
+    navBar
+  }
 }
 </script>
 
-<style scoped>
+<style scoped lang="scss">
+.layout{
+  height: 100vh;
+  background-color: red;
+}
 
 </style>

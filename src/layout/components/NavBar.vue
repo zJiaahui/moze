@@ -1,10 +1,10 @@
 <template>
-$END$
+<div>nav</div>
 </template>
 
 <script>
 export default {
-name: "Navbar"
+  name: "navBar"
 }
 </script>
 

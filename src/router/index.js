@@ -4,5 +4,11 @@ import vueRouter from "vue-router"
 Vue.use(vueRouter)
 export default new vueRouter({
     mode: "history",
-    routes: []
+    routes: [
+        {
+            name:"layouts",
+            path:"",
+            component:()=>import("../layout")
+        }
+    ]
 })
