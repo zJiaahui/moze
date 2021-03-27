@@ -1,5 +1,5 @@
 <template>
-  <svg class="icon" aria-hidden="true">
+  <svg class="icon" aria-hidden="true" @click="handleClick">
     <use :xlink:href="`#i-${name}`"></use>
   </svg>
 </template>
@@ -11,6 +11,11 @@ export default {
   props: {
     name:{
       type:String
+    }
+  },
+  methods:{
+    handleClick(){
+      this.$emit("click")
     }
   }
 }

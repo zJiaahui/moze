@@ -19,7 +19,7 @@
 </template>
 
 <script>
-import icon from "./Icon"
+import icon from "../../components/icon"
 
 export default {
   name: "navBar",

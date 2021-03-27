@@ -28,7 +28,7 @@ export default {
   flex-direction: column;
   height: 100vh;
   flex-grow: 1;
-
+  background-color:  #353445;
   > .main {
     flex-grow: 1;
   }
