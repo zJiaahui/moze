@@ -32,6 +32,10 @@ export default new vueRouter({
                     path:"index",
                     component:()=>import("../views/add")
                 },
+                {
+                    path:"record",
+                    component:()=>import("../views/addrecord")
+                },
 
             ]
 

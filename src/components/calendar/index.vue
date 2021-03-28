@@ -69,7 +69,7 @@ export default {
         if (startX != Math.abs(distanceX)) {
           //在滑动的距离超过屏幕高度的20%时，做某种操作
           console.log(distanceX,clientWidth * 0.2)
-          if (distanceX>0&& Math.abs(distanceX)> clientWidth * 0.3) {
+          if (distanceX>0&& Math.abs(distanceX)> clientWidth * 0.2) {
             //向下滑实行函数someAction1，向上滑实行函数someAction2
            console.log("向右滑动")
            // console.log(this.currentDate)
@@ -80,7 +80,7 @@ export default {
               date:this.currentDate.date
             })
           }
-          if (distanceX<0&& Math.abs(distanceX)> clientWidth * 0.3) {
+          if (distanceX<0&& Math.abs(distanceX)> clientWidth * 0.2) {
             //向下滑实行函数someAction1，向上滑实行函数someAction2
             console.log("向左滑动")
             this.calendarMonth = this.initCalendarMonth(this.currentDate.month >= 12 ? this.currentDate.year + 1 : this.currentDate.year,

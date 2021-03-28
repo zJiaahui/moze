@@ -1,7 +1,7 @@
 <template>
   <div>
     <header-bar title="账户总览">
-      <icon slot="h-left" :name="iconName" @click="handleClick"></icon>
+      <icon slot="h-left" :name='this.eyeOpen ? "eye-open" : "eye-close"' @click="handleClick"></icon>
     </header-bar>
     <div class="total-panel">
       <div class="total-panel-title">
@@ -9,7 +9,7 @@
         <span class="title-cny">CNY</span>
       </div>
       <div class="total-panel-number">
-        <template v-if="!eyeOpen">
+        <template v-if="eyeOpen">
         {{formatTotal(total)}}￥
       </template>
         <template v-else>
@@ -36,13 +36,12 @@ export default {
   name: "total",
   data() {
     return {
-      eyeOpen: true,
-      iconName: "eye-close",
+
 
     }
   },
   computed:{
-    ...mapState(["total","totalRevenue","totalPay"]),
+    ...mapState(["total","totalRevenue","totalPay","eyeOpen"]),
   },
   components: {
     headerBar,
@@ -54,8 +53,8 @@ export default {
   },
   methods: {
     handleClick() {
-      this.iconName = this.eyeOpen ? "eye-open" : "eye-close"
-      this.eyeOpen = !this.eyeOpen
+      // this.iconName = this.eyeOpen ? "eye-open" : "eye-close"
+      this.$store.commit("setEye")
 
     },
     formatTotal(total){
