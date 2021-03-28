@@ -68,7 +68,6 @@ export default {
       }else{
         return total
       }
-
     }
   }
 }

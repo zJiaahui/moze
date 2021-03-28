@@ -5,7 +5,7 @@ Vue.use(vueX)
 
 export default  new vueX.Store({
     state:{
-        total:1000000,//总额
+        total:10000000,//总额
         totalRevenue:1000,//总收入
         totalPay:500,//总支出
 
@@ -18,13 +18,16 @@ export default  new vueX.Store({
     },
     getters:{
         totalK(e){
-            return e.total/1000
+            // return e.total/1000
+            return  e.total
         },
         totalRevenueK(e){
-            return e.totalRevenue/1000
+            // return e.totalRevenue/1000
+            return  e.totalRevenue
         },
         totalPayK(e){
-            return e.totalPay/1000
+            //return e.totalPay/1000
+            return e.totalPay
         }
     }
 })

@@ -30,7 +30,7 @@ export default {
   props:{
     total:{
       type:Number,
-      default:100
+      default:0
     },
     totalRevenue:{
       type:Number,
@@ -81,7 +81,18 @@ export default {
             show: false
           },
           axisLabel:{
-            formatter: '{value} K'
+            formatter: function (value, index) {
+             if (value>=1000&&value<10000){
+               return value/1000 + 'k';
+             }else if (value>=10000&&value<100000000){
+               return value/10000 + 'w';
+             }else if(total>=100000000){
+               return value/100000000 + '亿';
+             }
+             else{
+               return value
+             }
+            }
           }
         },
         series: [
@@ -97,11 +108,11 @@ export default {
               },
               label: {
                 show: true,
-                formatter: '{c} K'
+                formatter: '{c} 元'
               }
             },
             tooltip:{
-              formatter: '{a}: {c} K'
+              formatter: '{a}: {c} 元'
             },
             itemStyle: {
               normal: {
@@ -136,11 +147,11 @@ export default {
               },
               label: {
                 show: true,
-                formatter: '{c} K'
+                formatter: '{c} 元'
               }
             },
             tooltip:{
-              formatter: '{a}: {c} K'
+              formatter: '{a}: {c} 元'
             }
           },
           {
@@ -164,11 +175,11 @@ export default {
               },
               label: {
                 show: true,
-                formatter: '{c} K'
+                formatter: '{c} 元'
               }
             },
             tooltip:{
-              formatter: '{a}: {c} K'
+              formatter: '{a}: {c} 元'
             }
 
 
