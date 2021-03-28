@@ -5,7 +5,7 @@ Vue.use(vueX)
 
 export default  new vueX.Store({
     state:{
-        total:3000,//总额
+        total:1000000,//总额
         totalRevenue:1000,//总收入
         totalPay:500,//总支出
 

@@ -64,8 +64,8 @@ export default {
         },
         xAxis: {
           // show:false,
-          name: "2021",//X轴名称
-          nameLocation: 'middle',//x轴名称位置
+         // name: "2021",//X轴名称
+         // nameLocation: 'middle',//x轴名称位置
           // nameGap: 26,X轴名称距离
           data: ['金额'],//x轴刻度标签
           axisTick: { //x轴是否显示刻度
@@ -183,6 +183,6 @@ export default {
 #main{
   margin-top: 20px;
   width: 100vw;
-  height: 160px;
+  height: 180px;
 }
 </style>

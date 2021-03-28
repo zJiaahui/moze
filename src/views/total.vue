@@ -5,17 +5,23 @@
     </header-bar>
     <div class="total-panel">
       <div class="total-panel-title">
-        <span>总额</span>
+        <span class="total-label">余  额</span>
         <span class="title-cny">CNY</span>
       </div>
-      <div class="total-panel-number">{{total}}</div>
+      <div class="total-panel-number">
+        <template v-if="!eyeOpen">
+        {{formatTotal(total)}}￥
+      </template>
+        <template v-else>
+          身家过亿
+        </template>
+      </div>
     </div>
     <e-chart :totalPay="totalPayK" :totalRevenue="totalRevenueK" :total="totalK"></e-chart>
     <div class="type">
       <span class="pay"><span class="pay-yuan"></span>支出</span>
       <span class="balance"><span class="balance-yuan"></span>余额</span>
       <span class="earning"> <span class="earning-yuan"></span>收入</span>
-
     </div>
   </div>
 </template>
@@ -53,6 +59,17 @@ export default {
       this.eyeOpen = !this.eyeOpen
 
     },
+    formatTotal(total){
+      if (total>=1000000&&total<100000000){
+        return total/10000 +"w"
+      }
+      else if (total>=100000000){
+        return total/100000000 +"亿"
+      }else{
+        return total
+      }
+
+    }
   }
 }
 </script>
@@ -76,6 +93,14 @@ export default {
       font-size: 20px;
       font-weight: 700;
 
+    }
+    &> .total-label{
+      background-color: rgba(262,138,2,1);
+      text-align: center;
+      border-radius: 4px;
+      font-size: 14px;
+      font-weight: 700;
+      margin-top: 5px;
     }
 
   }
