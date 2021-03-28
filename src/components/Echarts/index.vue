@@ -27,11 +27,26 @@ echarts.use(
 
 export default {
   name: "index",
+  props:{
+    total:{
+      type:Number,
+      default:100
+    },
+    totalRevenue:{
+      type:Number,
+      default:0
+    },
+    totalPay:{
+      type:Number,
+      default:0
+    },
+  },
   mounted() {
-    this.drawLine()
+
+    this.drawLine(this.total,this.totalRevenue,this.totalPay)
   },
   methods: {
-    drawLine() {
+    drawLine(total,totalRevenue,totalPay) {
       // 接下来的使用就跟之前一样，初始化图表，设置配置项
       let myChart = echarts.init(document.getElementById('main'));
       myChart.setOption({
@@ -73,7 +88,7 @@ export default {
           {
             name: '支出',
             type: 'bar',
-            data: [0.1],
+            data: [totalPay],
 
             emphasis: {
               focus: 'series',
@@ -81,7 +96,8 @@ export default {
                 color: "rgba(179,92,98,1)",
               },
               label: {
-                show: true
+                show: true,
+                formatter: '{c} K'
               }
             },
             tooltip:{
@@ -102,7 +118,7 @@ export default {
           {
             name: '余额',
             type: 'bar',
-            data: [1.2],
+            data: [total],
             itemStyle: {
               normal: {
                 color: function (params) {
@@ -119,7 +135,8 @@ export default {
                 color: "rgba(252,132,82,0.6)",
               },
               label: {
-                show: true
+                show: true,
+                formatter: '{c} K'
               }
             },
             tooltip:{
@@ -129,7 +146,7 @@ export default {
           {
             name: '收入',
             type: 'bar',
-            data: [3.6],
+            data: [totalRevenue],
             itemStyle: {
               normal: {
                 color: function (params) {

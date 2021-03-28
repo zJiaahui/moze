@@ -1,6 +1,6 @@
 <template>
   <div>
-    <header-bar title="我的账户">
+    <header-bar title="账户总览">
       <icon slot="h-left" :name="iconName" @click="handleClick"></icon>
     </header-bar>
     <div class="total-panel">
@@ -8,13 +8,12 @@
         <span>总额</span>
         <span class="title-cny">CNY</span>
       </div>
-      <div class="total-panel-number">5860</div>
+      <div class="total-panel-number">{{total}}</div>
     </div>
-    <e-chart></e-chart>
+    <e-chart :totalPay="totalPayK" :totalRevenue="totalRevenueK" :total="totalK"></e-chart>
     <div class="type">
-
-      <span class="balance"><span class="balance-yuan"></span>余额</span>
       <span class="pay"><span class="pay-yuan"></span>支出</span>
+      <span class="balance"><span class="balance-yuan"></span>余额</span>
       <span class="earning"> <span class="earning-yuan"></span>收入</span>
 
     </div>
@@ -25,16 +24,20 @@
 import icon from "../components/icon"
 import headerBar from "../components/headerBar"
 import eChart from "../components/Echarts"
-
-
+import {mapState,mapGetters} from "vuex"
 
 export default {
   name: "total",
   data() {
     return {
       eyeOpen: true,
-      iconName: "eye-close"
+      iconName: "eye-close",
+
     }
+  },
+  computed:{
+    ...mapState(["total","totalRevenue","totalPay"]),
+    ...mapGetters(["totalK","totalRevenueK","totalPayK"])
   },
   components: {
     headerBar,
@@ -108,7 +111,8 @@ export default {
       border-radius: 50%;
       top: 5px;
       left: -10px;
-      background:rgba(179,92,98,1);
+      background:rgba(262,138,2,1);
+
     }
   }
 
@@ -126,7 +130,7 @@ export default {
       border-radius: 50%;
       top: 5px;
       left: -10px;
-      background:rgba(262,138,2,1);
+      background:rgba(179,92,98,1);
     }
   }
 
