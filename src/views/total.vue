@@ -17,11 +17,11 @@
         </template>
       </div>
     </div>
-    <e-chart :totalPay="totalPayK" :totalRevenue="totalRevenueK" :total="totalK"></e-chart>
+    <e-chart :totalPay="totalPay" :totalRevenue="totalRevenue" :total="total"></e-chart>
     <div class="type">
-      <span class="pay"><span class="pay-yuan"></span>支出</span>
-      <span class="balance"><span class="balance-yuan"></span>余额</span>
-      <span class="earning"> <span class="earning-yuan"></span>收入</span>
+      <span class="pay"><span class="pay-yuan"></span>总支出</span>
+      <span class="balance"><span class="balance-yuan"></span>总余额</span>
+      <span class="earning"> <span class="earning-yuan"></span>总收入</span>
     </div>
   </div>
 </template>
@@ -30,7 +30,7 @@
 import icon from "../components/icon"
 import headerBar from "../components/headerBar"
 import eChart from "../components/Echarts"
-import {mapState,mapGetters} from "vuex"
+import {mapState} from "vuex"
 
 export default {
   name: "total",
@@ -43,7 +43,6 @@ export default {
   },
   computed:{
     ...mapState(["total","totalRevenue","totalPay"]),
-    ...mapGetters(["totalK","totalRevenueK","totalPayK"])
   },
   components: {
     headerBar,
@@ -116,7 +115,6 @@ export default {
 
 }
 .type {
-  margin-top: 5px;
   font-size: 10px;
   color: #95949f;
   text-align: center;
