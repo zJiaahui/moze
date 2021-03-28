@@ -1,35 +1,151 @@
 <template>
-<div>
-  <header-bar>
-    <icon slot="h-left" :name="iconName"  @click="handleClick"></icon>
-  </header-bar>
-</div>
+  <div>
+    <header-bar title="我的账户">
+      <icon slot="h-left" :name="iconName" @click="handleClick"></icon>
+    </header-bar>
+    <div class="total-panel">
+      <div class="total-panel-title">
+        <span>总额</span>
+        <span class="title-cny">CNY</span>
+      </div>
+      <div class="total-panel-number">5860</div>
+    </div>
+    <e-chart></e-chart>
+    <div class="type">
+
+      <span class="balance"><span class="balance-yuan"></span>余额</span>
+      <span class="pay"><span class="pay-yuan"></span>支出</span>
+      <span class="earning"> <span class="earning-yuan"></span>收入</span>
+
+    </div>
+  </div>
 </template>
 
 <script>
 import icon from "../components/icon"
 import headerBar from "../components/headerBar"
+import eChart from "../components/Echarts"
+
+
+
 export default {
   name: "total",
-  data(){
-    return{
-      eyeOpen:true,
-      iconName:"eye-close"
+  data() {
+    return {
+      eyeOpen: true,
+      iconName: "eye-close"
     }
   },
   components: {
     headerBar,
-    icon
+    icon,
+    eChart
   },
-  methods:{
-    handleClick(){
-      this.iconName=this.eyeOpen?"eye-open":"eye-close"
-      this.eyeOpen=!this.eyeOpen
-    }
+  mounted() {
+
+  },
+  methods: {
+    handleClick() {
+      this.iconName = this.eyeOpen ? "eye-open" : "eye-close"
+      this.eyeOpen = !this.eyeOpen
+
+    },
   }
 }
 </script>
 
 <style scoped lang="scss">
+.total-panel {
+  display: flex;
+  box-sizing: border-box;
+  justify-content: center;
+  width: 100vw;
 
+  height: 80px;
+  padding-top: 30px;
+
+  &-title {
+    display: flex;
+    color: white;
+    flex-direction: column;
+
+    & > .title-cny {
+      font-size: 20px;
+      font-weight: 700;
+
+    }
+
+  }
+
+  > .total-panel-number {
+    height: 50px;
+    line-height: 50px;
+    color: #8ECF52;
+    padding-left: 16px;
+    font-size: 42px;
+    font-weight: 700;
+
+  }
+
+}
+.type {
+  margin-top: 5px;
+  font-size: 10px;
+  color: #95949f;
+  text-align: center;
+
+  > .balance {
+    margin-left: 20px;
+    margin-right: 5px;
+    position: relative;
+
+    > .balance-yuan {
+      position: absolute;
+      content: " ";
+      display: inline;
+      width: 5px;
+      height: 5px;
+      border-radius: 50%;
+      top: 5px;
+      left: -10px;
+      background:rgba(179,92,98,1);
+    }
+  }
+
+  > .pay {
+    margin-left: 20px;
+    margin-right: 5px;
+    position: relative;
+
+    > .pay-yuan {
+      position: absolute;
+      content: " ";
+      display: inline;
+      width: 5px;
+      height: 5px;
+      border-radius: 50%;
+      top: 5px;
+      left: -10px;
+      background:rgba(262,138,2,1);
+    }
+  }
+
+  > .earning {
+    margin-left: 20px;
+    margin-right: 5px;
+    position: relative;
+
+    > .earning-yuan {
+      position: absolute;
+      content: " ";
+      display: inline;
+      width: 5px;
+      height: 5px;
+      border-radius: 50%;
+      top: 5px;
+      left: -10px;
+      background: rgba(103,138,74,1);
+    }
+  }
+}
 </style>

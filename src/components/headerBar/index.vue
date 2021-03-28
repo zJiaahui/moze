@@ -4,7 +4,7 @@
       <span class="h-left">
       <slot name="h-left"></slot>
       </span>
-      <h1>账户总览</h1>
+      <h1>{{title}}</h1>
       <span class="h-right">
          <slot name="h-right"></slot>
       </span>
@@ -21,10 +21,7 @@ export default {
     icon
   },
   props:{
-    leftIcon:{
-      type:String
-    },
-    rightIcon:{
+    title:{
       type:String
     }
   }
