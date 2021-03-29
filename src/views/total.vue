@@ -21,7 +21,7 @@
     <div class="type">
       <span class="pay"><span class="pay-yuan"></span>总支出</span>
       <span class="balance"><span class="balance-yuan"></span>总余额</span>
-      <span class="earning"> <span class="earning-yuan"></span>总收入</span>
+      <span class="earning"><span class="earning-yuan"></span>总收入</span>
     </div>
   </div>
 </template>

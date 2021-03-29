@@ -3,6 +3,8 @@ import vueRouter from "vue-router"
 
 Vue.use(vueRouter)
 import layout from  "../layout"
+import chart from "../views/chart"
+
 export default new vueRouter({
     // mode: "history",
     routes: [
@@ -47,7 +49,7 @@ export default new vueRouter({
             children:[
                 {
                     path:"index",
-                    component:()=>import("../views/chart")
+                    component:chart
                 },
 
             ]
