@@ -2,7 +2,9 @@
   <div>
     <header-bar title="账户报表"></header-bar>
     <ul class="items">
-      <li v-for="(item,index) in navTitles" :key="index" :class="{active:currentIndex==index}" @click="changeCurrentIndex(index)">{{ item }}</li>
+      <li v-for="(item,index) in navTitles" :key="index" :class="{active:currentIndex==index}"
+          @click="changeCurrentIndex(index)">{{ item }}
+      </li>
     </ul>
 
 
@@ -12,10 +14,18 @@
         :space-between="50"
         @swiper="onSwiper"
         @slideChange="onSlideChange">
-      <swiper-slide><all></all></swiper-slide>
-      <swiper-slide><detailed></detailed></swiper-slide>
-      <swiper-slide><category></category></swiper-slide>
-      <swiper-slide>Slide 3</swiper-slide>
+      <swiper-slide>
+        <all></all>
+      </swiper-slide>
+      <swiper-slide>
+        <detailed></detailed>
+      </swiper-slide>
+      <swiper-slide>
+        <category></category>
+      </swiper-slide>
+      <swiper-slide>
+        <ranking></ranking>
+      </swiper-slide>
     </swiper>
 
   </div>
@@ -27,15 +37,15 @@ import 'swiper/swiper-bundle.css';
 import all from "../components/chart/all";
 import detailed from "../components/chart/detailed";
 import category from "../components/chart/category";
-
+import ranking from "../components/chart/ranking";
 
 export default {
   name: "Chart",
   data() {
-   return {
-     navTitles:["总览", "明细", "类别", "排行"],
-     currentIndex:0
-   }
+    return {
+      navTitles: ["总览", "明细", "类别", "排行"],
+      currentIndex: 0
+    }
   },
   components: {
     Swiper,
@@ -43,11 +53,12 @@ export default {
     headerBar,
     all,
     detailed,
-    category
+    category,
+    ranking
   },
   methods: {
-    changeCurrentIndex(index){
-      this.currentIndex=index
+    changeCurrentIndex(index) {
+      this.currentIndex = index
       this.$refs.mySwiper.$swiper.slideTo(index, 300, false);
 
     },
@@ -55,18 +66,18 @@ export default {
       console.log(swiper);
     },
     onSlideChange(swiper) {
-      this.currentIndex=swiper.realIndex
+      this.currentIndex = swiper.realIndex
     },
   },
 };
 </script>
 <style scoped lang="scss">
-.items{
+.items {
   display: flex;
   justify-content: center;
   align-items: center;
 
-  & >li{
+  & > li {
     flex: 1;
     display: flex;
     justify-content: center;
@@ -76,7 +87,8 @@ export default {
     border-bottom: 2px solid transparent;
     color: #bab5b5;
   }
-  &>.active{
+
+  & > .active {
     color: #37b6ce;
     border-bottom: 2px solid #37b6ce;
   }
