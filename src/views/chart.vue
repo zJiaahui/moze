@@ -13,8 +13,8 @@
         @swiper="onSwiper"
         @slideChange="onSlideChange">
       <swiper-slide><all></all></swiper-slide>
-      <swiper-slide>Slide 2</swiper-slide>
-      <swiper-slide>Slide 3</swiper-slide>
+      <swiper-slide><detailed></detailed></swiper-slide>
+      <swiper-slide><category></category></swiper-slide>
       <swiper-slide>Slide 3</swiper-slide>
     </swiper>
 
@@ -25,6 +25,10 @@ import headerBar from "../components/headerBar"
 import {Swiper, SwiperSlide} from 'vue-awesome-swiper';
 import 'swiper/swiper-bundle.css';
 import all from "../components/chart/all";
+import detailed from "../components/chart/detailed";
+import category from "../components/chart/category";
+
+
 export default {
   name: "Chart",
   data() {
@@ -37,12 +41,14 @@ export default {
     Swiper,
     SwiperSlide,
     headerBar,
-    all
+    all,
+    detailed,
+    category
   },
   methods: {
     changeCurrentIndex(index){
       this.currentIndex=index
-      this.$refs.mySwiper.$swiper.slideTo(index, 1000, false);
+      this.$refs.mySwiper.$swiper.slideTo(index, 300, false);
 
     },
     onSwiper(swiper) {

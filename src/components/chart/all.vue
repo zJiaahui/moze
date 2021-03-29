@@ -7,7 +7,7 @@
         <span class="balance"><span class="balance-yuan"></span>余额</span>
       </div>
       <div class="bar">
-        <my-echarts></my-echarts>
+        <my-echarts :option="option"></my-echarts>
       </div>
       <div class="type-money">
         <span class="pay">123123123123123</span>
@@ -37,6 +37,97 @@ export default {
   components: {
     myEcharts,
     icon,
+  },
+  data(){
+    return{
+      option:  {
+        backgroundColor: '#353445',
+        title: {
+
+        },
+        tooltip: {
+          // trigger: 'axis',
+          //     axisPointer: {
+          //   type: 'shadow'
+          // }
+        },
+        legend: {
+          data: ['2011年', '2012年']
+        },
+        grid: {
+          top: "0%",
+          left: '3%',
+          right: '4%',
+          bottom: '0%',
+          containLabel: true
+        },
+        xAxis: {
+          show: false,
+          type: 'value',
+          axisTick: { //x轴是否显示刻度
+            show: false
+          },
+          axisLabel: {//是否显示X轴刻度标签
+            show: false
+          },
+          splitLine: {//是否显示背景网格
+            show: false,
+          },
+        },
+        yAxis: {
+          show: false,
+
+          splitLine: {show: false},
+          axisTick: { //x轴是否显示刻度
+            show: false
+          },
+          axisLabel: {//是否显示X轴刻度标签
+            show: false
+          },
+          data: ['金额'],
+        },
+        series: [
+          {
+            name: '支出',
+            type: 'bar',
+
+            data: [18203, 23489, 29034, 104970, 131744, 630230],
+            barWidth: "4%",
+            itemStyle:{
+              borderRadius:10,
+              color:"rgba(179, 92, 98, 1)",
+            },
+
+
+          },
+          {
+            name: '收入',
+            type: 'bar',
+            data: [19325, 23438, 31000, 121594, 134141, 681807],
+            barWidth: "4%",
+            itemStyle:{
+              borderRadius:10,
+              color:"rgba(103, 138, 74, 1)",
+            },
+
+          }
+          ,
+          {
+            name: '总计',
+            type: 'bar',
+            data: [19325, 23438, 31000, 121594, 134141, 681807],
+            barGap:'500%',
+            barWidth: "4%",
+            itemStyle:{
+              borderRadius:10,
+              color:"rgba(262, 138, 2, 1)",
+            },
+
+          }
+        ]
+
+      }
+    }
   }
 
 }
@@ -47,6 +138,7 @@ export default {
   display: flex;
 
   > .bar {
+    height: 120px;
     flex: 1;
   }
 }
