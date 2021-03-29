@@ -8,6 +8,7 @@
 <script>
 import herderBar from "../components/headerBar"
 import calendar from "../components/calendar"
+import {mapMutations} from "vuex";
 
 export default {
   name: "add",
@@ -27,9 +28,11 @@ export default {
   },
 
   methods: {
+    ...mapMutations(["setSelectedDate"]),
     handleDate(Date) {
 
       this.currentDate = Date
+      this.setSelectedDate(`${Date.year}-${Date.month}-${Date.date}`)
 
     },
   }

@@ -7,28 +7,26 @@
     <div class="record-type">
       <div class="type-nav">
         <span v-for="(item,index) in type" :key="index" :class="{active:currentIndex==index}"
-              @click="currentIndex=index">{{ item }}</span>
-
+              @click=" handleType(item,index)">{{ item }}</span>
       </div>
       <div class="type-content">
-        <div v-for="(item,index) in currentType" :key="index" class="type-content-item">
+        <div v-for="(item,index) in currentType" :key="index" class="type-content-item" @click="handleTypeItem(item,index)">
           <icon slot="h-left" :name='item.icon'></icon>
-          <span> {{ item.text }}</span>
-
+          <span :class="{'item-active':currentTypeItemIndex===index}"> {{ item.text }}</span>
         </div>
       </div>
 
       <div class="type-item-info">
-        <div>
-          <input type="number" placeholder="金额">
+        <div class="item-info-money">
+          <input name="money" v-model="money" type="number" placeholder="金额">
+          <span>元</span>
         </div>
         <div class="date">
-          <input type="date">
-          <input type="date">
+          <input name="date" v-model="myDate" readonly>
+          <input name="time" v-model="myTime" readonly>
         </div>
         <div class="date">
-          <input class="remarks" placeholder="备注">
-
+          <textarea name="remarks" v-model="myRemarks" class="remarks" placeholder="备注"></textarea>
         </div>
       </div>
 
@@ -46,6 +44,7 @@ export default {
     return {
       type: ["收入", "支出"],
       currentIndex: 0,
+      currentTypeItemIndex: 0,
       payType: [
         {
           icon: "canyin",
@@ -96,9 +95,16 @@ export default {
           icon: "qita",
           text: "其他"
         },
-      ]
-
+      ],
+      myTime: null,
+      myDate: null,
+      myRemarks: null,
+      money: null,
     }
+  },
+  mounted() {
+    this.myTime = this.getCurrentTime()
+    this.myDate = this.$store.state.selectedDate ? this.$store.state.selectedDate : this.getNowFormatDate();
   },
   computed: {
     currentType() {
@@ -110,7 +116,41 @@ export default {
     icon,
   },
   methods: {
+    getNowFormatDate() {
+      let date = new Date();
+      let year = date.getFullYear();
+      let month = date.getMonth() + 1;
+      let strDate = date.getDate();
+      return `${year}-${month}-${strDate}`
+    },
+    getCurrentTime() {
+      const date = new Date()
+      let hours = date.getHours()
+      let minutes = date.getMinutes()
+      if (hours < 10) {
+        hours = "0" + hours
+      }
+      if (minutes < 10) {
+        minutes = "0" + minutes
+      }
+      return `${hours}:${minutes}`
+    },
+    handleChange() {
+      console.log(typeof this.myTime)
+    },
     handlePreservation() {
+
+      if (!this.money) {
+        alert("请输入金额")
+      }
+
+    },
+    handleType(item,index){
+      this.currentIndex=index
+      this.currentTypeItemIndex=0
+    },
+    handleTypeItem(item,index) {
+      this.currentTypeItemIndex=index
 
     }
   }
@@ -128,15 +168,34 @@ export default {
     & .type-item-info {
       text-align: center;
       padding: 16px;
+      &>.item-info-money{
+        position: relative;
+        >span{
+          position: absolute;
+          right: 6px;
+          top: 10px;
+          color: white;
 
+        }
+      }
       & > .date {
         display: flex;
         margin-top: 10px;
-        >input{
+
+        > input {
           color: white;
+          margin: 0 2px;
         }
-        >.remarks{
+
+        > .remarks {
+          width: 100%;
+          background-color: transparent;
           height: 80px;
+          border: 1px solid #ceced4;
+          border-radius: 6px;
+          padding: 16px;
+          color: white;
+          margin: 0 2px;
         }
       }
 
@@ -145,7 +204,9 @@ export default {
         height: 32px;
         border-radius: 6px;
         width: 100%;
-        padding: 16px;
+        padding: 20px;
+        color: white;
+        margin: 0 2px;
       }
     }
 
@@ -174,7 +235,7 @@ export default {
       display: flex;
       width: 100vw;
       flex-wrap: wrap;
-      color: white;
+      color: #a39f9f;
 
       & > .type-content-item {
         width: 20vw;
@@ -185,6 +246,11 @@ export default {
         justify-content: center;
         align-items: center;
         font-size: 30px;
+
+        & > .item-active {
+        color: white;
+          font-weight: 700;
+        }
 
         & > span {
           font-size: 12px;

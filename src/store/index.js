@@ -9,7 +9,8 @@ export default  new vueX.Store({
         totalRevenue:1000000,//总收入
         totalPay:5000000,//总支出
         eyeOpen:true,
-        navActive:"total"
+        navActive:"total",
+        selectedDate:""
     },
     actions:{
 
@@ -21,6 +22,9 @@ export default  new vueX.Store({
         },
         setNavActive(state,value){
             state.navActive=value
+        },
+        setSelectedDate(state,value){
+            state.selectedDate=value
         }
 
     },
