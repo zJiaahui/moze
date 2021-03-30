@@ -134,7 +134,7 @@ export default {
           billType: "current"
         })
       }
-      for (let i = 0; i < 6 - currentMonthLastDay; i++) {
+      for (let i = 0; i < 6 - currentMonthLastDay+7; i++) {
         calendarMonth.push(
             {
               billYear: nextMonth.billYear,
