@@ -10,14 +10,14 @@
       </div>
       <div class="total-panel-number">
         <template v-if="eyeOpen">
-        {{formatTotal(total)}}￥
-      </template>
+          {{ formatTotal(totalBalance) }}￥
+        </template>
         <template v-else>
           身家过亿
         </template>
       </div>
     </div>
-    <e-chart :totalPay="totalPay" :totalRevenue="totalRevenue" :total="total"></e-chart>
+    <e-chart :totalPay="totalExpenditure" :totalRevenue="totalRevenue" :total="totalBalance"></e-chart>
     <div class="type">
       <span class="pay"><span class="pay-yuan"></span>总支出</span>
       <span class="balance"><span class="balance-yuan"></span>总余额</span>
@@ -36,34 +36,54 @@ export default {
   name: "total",
   data() {
     return {
+      //总余额
+      totalBalance: 0,
+      //总收入
+      totalRevenue: 0,
+      //总支出
+      totalExpenditure: 0,
+    }
+  },
+  computed: {
+    ...mapState(["billRecordList", "eyeOpen"]),
+    balance() {
 
 
     }
-  },
-  computed:{
-    ...mapState(["total","totalRevenue","totalPay","eyeOpen"]),
   },
   components: {
     headerBar,
     icon,
     eChart
   },
-  mounted() {
+  created() {
+    this.billRecordList.forEach((item) => {
+      if (item.billType == "支出") {
+        this.totalExpenditure += item.billMoney-0
+      }else if (item.billType == "收入"){
+        this.totalRevenue+=item.billMoney-0
+      }
+
+    })
+    this.totalBalance = this.totalRevenue-this.totalExpenditure
+    console.log(this.totalExpenditure)
+    console.log(this.totalRevenue)
+    console.log(this.totalBalance)
 
   },
+
   methods: {
     handleClick() {
-      // this.iconName = this.eyeOpen ? "eye-open" : "eye-close"
+
       this.$store.commit("setEye")
 
     },
-    formatTotal(total){
-      if (total>=1000000&&total<100000000){
-        return total/10000 +"w"
-      }
-      else if (total>=100000000){
-        return total/100000000 +"亿"
-      }else{
+    formatTotal(total) {
+      if (total >= 1000000 && total < 100000000) {
+        return total / 10000 + "w"
+      } else if (total >= 100000000) {
+        return total / 100000000 + "亿"
+      } else {
         return total
       }
     }
@@ -91,8 +111,9 @@ export default {
       font-weight: 700;
 
     }
-    &> .total-label{
-      background-color: rgba(262,138,2,1);
+
+    & > .total-label {
+      background-color: rgba(262, 138, 2, 1);
       text-align: center;
       border-radius: 4px;
       font-size: 14px;
@@ -113,6 +134,7 @@ export default {
   }
 
 }
+
 .type {
   font-size: 10px;
   color: #95949f;
@@ -132,7 +154,7 @@ export default {
       border-radius: 50%;
       top: 5px;
       left: -10px;
-      background:rgba(262,138,2,1);
+      background: rgba(262, 138, 2, 1);
 
     }
   }
@@ -151,7 +173,7 @@ export default {
       border-radius: 50%;
       top: 5px;
       left: -10px;
-      background:rgba(179,92,98,1);
+      background: rgba(179, 92, 98, 1);
     }
   }
 
@@ -169,7 +191,7 @@ export default {
       border-radius: 50%;
       top: 5px;
       left: -10px;
-      background: rgba(103,138,74,1);
+      background: rgba(103, 138, 74, 1);
     }
   }
 }

@@ -82,16 +82,32 @@ export default {
           },
           axisLabel:{
             formatter: function (value, index) {
-             if (value>=1000&&value<10000){
-               return value/1000 + 'k';
-             }else if (value>=10000&&value<100000000){
-               return value/10000 + 'w';
-             }else if(total>=100000000){
-               return value/100000000 + '亿';
-             }
-             else{
-               return value
-             }
+
+              if(value>0){
+                if (value>=1000&&value<10000){
+                  return value/1000 + 'k';
+                }else if (value>=10000&&value<100000000){
+                  return value/10000 + 'w';
+                }else if(total>=100000000){
+                  return value/100000000 + '亿';
+                }
+                else{
+                  return value
+                }
+              }else{
+                let v=Math.abs(value)
+                if (v>=1000&&v<10000){
+                  return v/1000 + 'k';
+                }else if (v>=10000&&v<100000000){
+                  return v/10000 + 'w';
+                }else if(total>=100000000){
+                  return v/100000000 + '亿';
+                }
+                else{
+                  return value
+                }
+              }
+
             }
           }
         },
@@ -194,6 +210,6 @@ export default {
 #main{
   margin-top: 20px;
   width: 100vw;
-  height: 180px;
+  height: 200px;
 }
 </style>
