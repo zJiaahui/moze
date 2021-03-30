@@ -104,6 +104,7 @@ export default {
     color: #cdcdd0;
     position: relative;
     font-weight: 700;
+    //box-shadow: 0 0 1px rgba(128,128,128,0.5);
   }
 
   & > .active {
@@ -116,6 +117,7 @@ export default {
   & > .on_current_month {
     color: #64636c !important;
     font-weight: 400;
+    //box-shadow:none;
   }
 }
 </style>

@@ -37,13 +37,17 @@
 <script>
 import icon from "../components/icon"
 import headerBar from "../components/headerBar"
-import {billTypeList} from "../uitl/basedata"
+
 
 export default {
   name: "addRecord",
+  components: {
+    headerBar,
+    icon,
+  },
   data() {
     return {
-      type: ["收入", "支出"],
+      type: ["支出","收入"],
       currentIndex: 0,
       currentTypeItemIndex: 0,
       payType: [
@@ -101,21 +105,25 @@ export default {
       myDate: null,
       myRemarks: null,
       money: null,
+
     }
   },
   mounted() {
     this.myTime = this.getCurrentTime()
-    this.myDate = this.$store.state.selectedDate ? this.$store.state.selectedDate : this.getNowFormatDate();
+    this.myDate =this.currentDate
   },
   computed: {
     currentType() {
       return this.currentIndex == 0 ? this.payType : this.incomeType
+    },
+    currentDate(){
+      return this.$store.state.billCurrentDate ?
+          `${this.$store.state.billCurrentDate.billYear}-${this.$store.state.billCurrentDate.billMonth}-${this.$store.state.billCurrentDate.billDate}`
+          : this.getNowFormatDate();
     }
+
   },
-  components: {
-    headerBar,
-    icon,
-  },
+
   methods: {
 
     getNowFormatDate() {
@@ -137,14 +145,25 @@ export default {
       }
       return `${hours}:${minutes}`
     },
-    handleChange() {
-      console.log(typeof this.myTime)
-    },
     handlePreservation() {
-
+      let reg = /(^[1-9]([0-9]+)?(\.[0-9]{1,2})?$)|(^(0){1}$)|(^[0-9]\.[0-9]([0-9])?$)/;
       if (!this.money) {
         alert("请输入金额")
+        return
       }
+      if (!reg.test(this.money)) {
+        alert("金额输入有误请重新输入");
+        return
+      }
+     let billRecordListItem={
+       billType:this.type[this.currentIndex],
+       billTag:this.type[this.currentIndex]==="支出"?this.payType[this.currentTypeItemIndex]:this.incomeType[this.currentTypeItemIndex],
+       billDate:this.myDate,
+       billTime:this.myTime,
+       billNote:this.myRemarks,
+       billMoney:this.money
+     }
+     this.$store.commit("updateBillRecordList",billRecordListItem)
 
     },
     handleType(item,index){

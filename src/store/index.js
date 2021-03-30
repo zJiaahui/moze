@@ -11,7 +11,7 @@ function  getNowFormatDate() {
 export default  new vueX.Store({
     state:{
         billCurrentDate:getNowFormatDate(),
-
+        billRecordList: localStorage.billRecordList?JSON.parse(localStorage.billRecordList):[],
         total:10000000,//总额
         totalRevenue:1000000,//总收入
         totalPay:5000000,//总支出
@@ -32,7 +32,12 @@ export default  new vueX.Store({
         },
         setBillCurrentDate(state,value){
             state.billCurrentDate=value
-        }
+        },
+        updateBillRecordList(state , recordItem){
+            state.billRecordList = state.billRecordList.concat(recordItem)
+            localStorage.setItem('billRecordList',
+                JSON.stringify(state.billRecordList));
+        },
     },
     getters:{
 
