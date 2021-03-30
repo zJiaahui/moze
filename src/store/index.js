@@ -99,6 +99,12 @@ export default new vueX.Store({
                 return  new Date(itemb[0],itemb[1],itemb[2])- new Date(itema[0],itema[1],itema[2])
             })
             return revenueRerecord
+        },
+        getRanking(state) {
+            let list = state.billRecordList.sort(function (a, b) {
+                return  b.billMoney-a.billMoney
+            })
+            return list
         }
 
     }

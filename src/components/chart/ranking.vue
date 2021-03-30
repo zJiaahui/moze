@@ -1,11 +1,12 @@
 <template>
   <div>
     <div class="top3">
-      <span class="top3-title">TOP排行</span>
+      <span class="top3-title">金额排行</span>
       <ul class="top3-list">
-        <li>
-          <icon name="canyin"></icon>
-          <span>饮食</span><span>2021-3-29</span><span>300</span></li>
+        <li v-for="(item,index) in getRanking" :key="index">
+         <span> <icon :name="item.billTag.icon"></icon>
+          {{item.billTag.text}}</span><span :class="{typered:item.billType=='支出'}">{{item.billType}}</span><span>{{item.billDate}}</span><span>￥{{item.billMoney}}</span>
+        </li>
       </ul>
     </div>
   </div>
@@ -14,13 +15,16 @@
 <script>
 
 import icon from "../icon";
-
+import {mapGetters} from "vuex"
 export default {
   name: "ranking",
   components: {
 
     icon
   },
+  computed:{
+    ...mapGetters(["getRanking"]),
+  }
 
 }
 </script>
@@ -30,7 +34,7 @@ export default {
 .top3 {
   margin-top: 10px;
   padding: 0 16px;
-  height: 100px;
+
   width: 100%;
 
   > .top3-title {
@@ -57,5 +61,8 @@ export default {
     text-align: end;
   }
 
+}
+.typered{
+  color: rgba(188, 79, 79, 1);
 }
 </style>
