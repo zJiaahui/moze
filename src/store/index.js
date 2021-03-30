@@ -17,6 +17,7 @@ export default new vueX.Store({
         billRecordList: localStorage.billRecordList ? JSON.parse(localStorage.billRecordList) : [],
         eyeOpen: true,
         navActive: "total",
+        RecordByDate:[]
     },
     actions: {},
     mutations: {
@@ -35,6 +36,13 @@ export default new vueX.Store({
             localStorage.setItem('billRecordList',
                 JSON.stringify(state.billRecordList));
         },
+        getRecordByDate(state,date) {
+            state.RecordByDate = state.billRecordList.filter(item=>{
+                let y=   item.billDate.split("-")[0]
+                let m=   item.billDate.split("-")[1]
+                return y==date.billYear&&m==date.billMonth
+            })
+        }
     },
     getters: {
         getMoney(state) {
@@ -105,7 +113,8 @@ export default new vueX.Store({
                 return  b.billMoney-a.billMoney
             })
             return list
-        }
+        },
+
 
     }
 })
