@@ -14,7 +14,7 @@
       {{ item.billDate == 1 ? item.billMonth + "月" : item.billDate }}
     </span>
     </div>
-    
+    <div class="tip">日历年份{{calenderY}}</div>
   </div>
 </template>
 
@@ -54,7 +54,20 @@ export default {
 </script>
 
 <style scoped lang="scss">
+.calendar {
+  position: relative;
 
+  > .tip {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    text-align: center;
+    transform: translate(-50%, -50%);
+    color: rgba(225, 225, 225, 0.05);
+    font-size: 30px;
+    z-index: -1;
+  }
+}
 
 .week {
   display: flex;
