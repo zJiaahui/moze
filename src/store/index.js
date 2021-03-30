@@ -73,6 +73,32 @@ export default new vueX.Store({
                 return  b.billMoney-a.billMoney
             })
             return revenueRerecordTop3.slice(0,3)
+        },
+
+        expenditureRerecord(state) {
+            let Expenditure = state.billRecordList.filter((item) => {
+                return item.billType == "支出"
+            })
+            let expenditureRerecord = Expenditure.sort(function (a, b) {
+                let itemb =b.billDate.split("-")
+                let itema =a.billDate.split("-")
+
+                return  new Date(itemb[0],itemb[1],itemb[2])- new Date(itema[0],itema[1],itema[2])
+            })
+
+            return expenditureRerecord
+        },
+        revenueRerecord(state) {
+            let Revenue = state.billRecordList.filter((item) => {
+                return item.billType == "收入"
+            })
+            let revenueRerecord = Revenue.sort(function (a, b) {
+                let itemb =b.billDate.split("-")
+                let itema =a.billDate.split("-")
+
+                return  new Date(itemb[0],itemb[1],itemb[2])- new Date(itema[0],itema[1],itema[2])
+            })
+            return revenueRerecord
         }
 
     }

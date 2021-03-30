@@ -49,6 +49,10 @@ export default {
     drawLine(total,totalRevenue,totalPay) {
       // 接下来的使用就跟之前一样，初始化图表，设置配置项
       let myChart = echarts.init(document.getElementById('main'));
+      // myChart.on("click", (obj)=>{
+      //   console.log(obj)
+      // }); //里面有两个参数 第一个参数是你要的事件是什么 第二参数是 点击事件
+
       myChart.setOption({
         backgroundColor: '#353445',
         title: {

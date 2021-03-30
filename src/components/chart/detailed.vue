@@ -38,7 +38,7 @@ export default {
           }
         },
         grid: {
-          top: "5%",
+          top: "6%",
           left: '2%',
           right: '2%',
           bottom: '0%',
@@ -52,7 +52,7 @@ export default {
           }
         },
         legend: {
-          data: ['蒸发量', '降水量', '平均温度']
+         // data: ['蒸发量', '降水量', '余额']
         },
         xAxis: [
           {
@@ -95,7 +95,6 @@ export default {
           {
             name: '降水量',
             type: 'bar',
-
             data: [2.6, 5.9, 9.0, 26.4, 28.7, 70.7, 175.6, 182.2, 48.7, 18.8, 6.0, 2.3]
           },
           {
@@ -114,7 +113,7 @@ export default {
 <style scoped lang="scss">
 .chart {
   width: 100vm;
-  height: 200px;
+  height: 240px;
   margin: 0 16px;
 }
 .top3 {

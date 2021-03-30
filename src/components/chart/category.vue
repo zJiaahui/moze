@@ -1,14 +1,15 @@
 <template>
   <div>
-  <div class="chart">
-    <my-echarts :option="option"></my-echarts>
-  </div>
+    <div class="chart">
+      <my-echarts :option="option" @handleChartClick="handleChartClick"></my-echarts>
+    </div>
     <div class="top3">
-      <span class="top3-title">TOP5排行</span>
+      <span class="top3-title">{{typeName}}列表</span>
       <ul class="top3-list">
-        <li>
-          <icon name="canyin"></icon>
-          <span>饮食</span><span>2021-3-29</span><span>300</span></li>
+        <li v-for="(item,index) in typeList" :key="index">
+         <span> <icon :name="item.billTag.icon"></icon>
+          {{item.billTag.text}}</span><span>{{item.billDate}}</span><span>￥{{item.billMoney}}</span>
+        </li>
       </ul>
     </div>
   </div>
@@ -17,16 +18,26 @@
 <script>
 import myEcharts from "./components/myEcharts";
 import icon from "../icon";
-
+import {mapGetters} from "vuex"
 export default {
   name: "category",
   components: {
     myEcharts,
     icon
   },
-  data() {
-    return {
-      option : {
+  mounted() {
+    this.typeList=this.revenueRerecord
+  },
+  computed: {
+    ...mapGetters(["getMoney","revenueRerecord","expenditureRerecord"]),
+    chartValue(){
+      let {totalBalance, totalRevenue, totalExpenditure}=this.getMoney
+      console.log(totalRevenue, totalExpenditure)
+      let valueItem= [{value: totalRevenue,name:"收入"},{value: totalExpenditure,name:"支出"}]
+      return valueItem;
+    },
+    option() {
+      let option = {
         tooltip: {
           trigger: 'item'
         },
@@ -36,14 +47,19 @@ export default {
         },
         series: [
           {
-            name: '访问来源',
             type: 'pie',
-            radius: ['40%', '70%'],
+            radius: ['20%', '80%'],
             avoidLabelOverlap: false,
             itemStyle: {
-              borderRadius: 10,
-              borderColor: '#fff',
-              borderWidth: 2
+              normal: {
+                color: function (params) {
+                  let colorList = ['rgba(103,138,74,1)',"rgba(188, 79, 79, 1)"];
+                  return colorList[params.dataIndex];
+                },
+                borderRadius: 10,
+                borderColor: '#fff',
+                borderWidth: 2,
+              }
             },
             label: {
               show: false,
@@ -54,21 +70,40 @@ export default {
                 show: true,
                 fontSize: '10',
                 fontWeight: 'bold'
-              }
+              },
+              normal: {
+                color: function (params) {
+                  let colorList = ['rgba(103,138,74,1)',"rgba(188, 79, 79, 1)"];
+                  return colorList[params.dataIndex];
+                },}
             },
             labelLine: {
               show: false
             },
-            data: [
-              {value: 1048, name: '搜索引擎'},
-              {value: 735, name: '直接访问'},
-              {value: 580, name: '邮件营销'},
-              {value: 484, name: '联盟广告'},
-              {value: 300, name: '视频广告'}
-            ]
+            data: this.chartValue,
+            tooltip:{
+              formatter: '{b}: {c} 元 <br /> 占比: {d}%',
+
+            },
+
+
           }
         ]
       }
+      return option;
+    }
+  },
+  methods:{
+    handleChartClick(obj){
+      //console.log(obj)
+      this.typeName=obj.name
+      this.typeList= obj.name=="收入"? this.revenueRerecord:this.expenditureRerecord
+    }
+  },
+  data() {
+    return {
+      typeName:"收入",
+      typeList:this.revenueRerecord
     }
   }
 }
@@ -77,13 +112,14 @@ export default {
 <style scoped lang="scss">
 .chart {
   width: 100vm;
-  height: 200px;
+  height: 210px;
   margin: 0 16px;
 }
+
 .top3 {
   margin-top: 10px;
   padding: 0 16px;
-  height: 100px;
+
   width: 100%;
 
   > .top3-title {
@@ -95,6 +131,7 @@ export default {
     border-bottom: 1px solid #4e4d4d;
   }
 }
+
 .top3-list > li {
   display: flex;
   justify-content: space-between;
@@ -102,10 +139,12 @@ export default {
   padding: 8px 0;
   color: #bab5b5;
 
-  > ::v-deep .icon {
+  > ::v-deep span .icon {
     font-size: 30px;
+    vertical-align: middle;
   }
-  > :last-child{
+
+  > :last-child {
     min-width: 80px;
     text-align: end;
   }

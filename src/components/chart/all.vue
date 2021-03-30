@@ -114,17 +114,7 @@ export default {
       }
       return option
     }
-  },
-  data() {
-    return {
-      top5:0,
-    }
-  },
-  mounted() {
-    console.log(this.expenditureRerecordTop3)
-    console.log(this.revenueRerecordTop3)
   }
-
 }
 </script>
 
