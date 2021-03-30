@@ -31,6 +31,15 @@ export default {
   background-color:  #353445;
   > .main {
     flex-grow: 1;
+    padding-bottom: 60px;
+    background-color:  #353445;
+  }
+  >.nav{
+    width: 100%;
+    position: fixed;
+    left: 0;
+    bottom: 0;
+    z-index: 10;
   }
 }
 
