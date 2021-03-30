@@ -164,7 +164,8 @@ export default {
        billMoney:this.money
      }
      this.$store.commit("updateBillRecordList",billRecordListItem)
-
+      alert("保存成功")
+      this.money=""
     },
     handleType(item,index){
       this.currentIndex=index
