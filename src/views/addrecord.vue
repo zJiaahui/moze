@@ -37,6 +37,7 @@
 <script>
 import icon from "../components/icon"
 import headerBar from "../components/headerBar"
+import {billTypeList} from "../uitl/basedata"
 
 export default {
   name: "addRecord",
@@ -116,6 +117,7 @@ export default {
     icon,
   },
   methods: {
+
     getNowFormatDate() {
       let date = new Date();
       let year = date.getFullYear();

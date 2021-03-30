@@ -1,7 +1,7 @@
 <template>
   <div>
     <herder-bar :title="title"></herder-bar>
-    <calendar @handleDate="handleDate"></calendar>
+    <calendar></calendar>
   </div>
 </template>
 
@@ -14,27 +14,20 @@ export default {
   name: "add",
   data() {
     return {
-      currentDate: {},
     }
   },
-  computed:{
-    title(){
-      return this.currentDate.year+"年"+this.currentDate.month+"月"+this.currentDate.date+"日"
-    }
-  },
+
   components: {
     herderBar,
     calendar
   },
-
+  computed: {
+    title() {
+      let {billYear,billMonth, billDate}=this.$store.state.billCurrentDate
+      return `${billYear}-${billMonth}-${billDate}`
+    }
+  },
   methods: {
-    ...mapMutations(["setSelectedDate"]),
-    handleDate(Date) {
-
-      this.currentDate = Date
-      this.setSelectedDate(`${Date.year}-${Date.month}-${Date.date}`)
-
-    },
   }
 }
 </script>
