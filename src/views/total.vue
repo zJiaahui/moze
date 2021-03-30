@@ -10,14 +10,14 @@
       </div>
       <div class="total-panel-number">
         <template v-if="eyeOpen">
-          {{ formatTotal(totalBalance) }}￥
+          {{ formatTotal(getMoney.totalBalance) }}￥
         </template>
         <template v-else>
           身家过亿
         </template>
       </div>
     </div>
-    <e-chart :totalPay="totalExpenditure" :totalRevenue="totalRevenue" :total="totalBalance"></e-chart>
+    <e-chart :totalPay="getMoney.totalExpenditure" :totalRevenue="getMoney.totalRevenue" :total="getMoney.totalBalance"></e-chart>
     <div class="type">
       <span class="pay"><span class="pay-yuan"></span>总支出</span>
       <span class="balance"><span class="balance-yuan"></span>总余额</span>
@@ -30,26 +30,18 @@
 import icon from "../components/icon"
 import headerBar from "../components/headerBar"
 import eChart from "../components/Echarts"
-import {mapState} from "vuex"
+import {mapState, mapGetters} from "vuex"
 
 export default {
   name: "total",
   data() {
     return {
-      //总余额
-      totalBalance: 0,
-      //总收入
-      totalRevenue: 0,
-      //总支出
-      totalExpenditure: 0,
+
     }
   },
   computed: {
-    ...mapState(["billRecordList", "eyeOpen"]),
-    balance() {
-
-
-    }
+    ...mapState(["eyeOpen"]),
+    ...mapGetters(["getMoney"])
   },
   components: {
     headerBar,
@@ -57,18 +49,6 @@ export default {
     eChart
   },
   created() {
-    this.billRecordList.forEach((item) => {
-      if (item.billType == "支出") {
-        this.totalExpenditure += item.billMoney-0
-      }else if (item.billType == "收入"){
-        this.totalRevenue+=item.billMoney-0
-      }
-
-    })
-    this.totalBalance = this.totalRevenue-this.totalExpenditure
-    console.log(this.totalExpenditure)
-    console.log(this.totalRevenue)
-    console.log(this.totalBalance)
 
   },
 

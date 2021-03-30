@@ -10,18 +10,27 @@
         <my-echarts :option="option"></my-echarts>
       </div>
       <div class="type-money">
-        <span class="pay">123123123123123</span>
-        <span class="balance">余额</span>
-        <span class="earning">收入</span>
+        <span class="pay"> ￥{{ getMoney.totalExpenditure }}</span>
+        <span class="earning">￥{{getMoney.totalRevenue}}</span>
+        <span class="balance">￥{{getMoney.totalBalance}}</span>
       </div>
     </div>
 
     <div class="top3">
-      <span class="top3-title">TOP5排行</span>
+      <span class="top3-title">TOP3 收入</span>
       <ul class="top3-list">
-        <li>
-          <icon name="canyin"></icon>
-          <span>饮食</span><span>2021-3-29</span><span>300</span></li>
+        <li v-for="(item,index) in revenueRerecordTop3" :key="index">
+          <span><icon :name="item.billTag.icon"></icon>
+          {{item.billTag.text}}</span><span>{{item.billDate}}</span><span>￥{{item.billMoney}}</span>
+        </li>
+      </ul>
+      <br/>
+      <span class="top3-title">TOP3 支出</span>
+      <ul class="top3-list">
+        <li v-for="(item,index) in expenditureRerecordTop3" :key="index">
+         <span> <icon :name="item.billTag.icon"></icon>
+          {{item.billTag.text}}</span><span>{{item.billDate}}</span><span>￥{{item.billMoney}}</span>
+        </li>
       </ul>
     </div>
 
@@ -31,6 +40,7 @@
 <script>
 import myEcharts from "./components/myEcharts";
 import icon from "../icon";
+import {mapGetters} from "vuex"
 
 export default {
   name: "all",
@@ -38,76 +48,52 @@ export default {
     myEcharts,
     icon,
   },
-  data(){
-    return{
-      option:  {
+  computed: {
+    ...mapGetters(["getMoney","revenueRerecordTop3","expenditureRerecordTop3"]),
+    option(){
+     let option={
         backgroundColor: '#353445',
-        title: {
-
-        },
-        tooltip: {
-          // trigger: 'axis',
-          //     axisPointer: {
-          //   type: 'shadow'
-          // }
-        },
-        legend: {
-          data: ['2011年', '2012年']
-        },
+            legend: {},
         grid: {
           top: "0%",
-          left: '3%',
-          right: '4%',
-          bottom: '0%',
-          containLabel: true
+              left: '3%',
+              right: '3%',
+              bottom: '0%',
+              containLabel: true
         },
         xAxis: {
           show: false,
-          type: 'value',
-          axisTick: { //x轴是否显示刻度
-            show: false
-          },
-          axisLabel: {//是否显示X轴刻度标签
-            show: false
-          },
-          splitLine: {//是否显示背景网格
-            show: false,
-          },
+              type: 'value',
+              axisTick: {show: false},//x轴是否显示刻度
+          axisLabel: {show: false},//是否显示X轴刻度标签
+          splitLine: {show: false},//是否显示背景网格
         },
         yAxis: {
           show: false,
-
-          splitLine: {show: false},
-          axisTick: { //x轴是否显示刻度
-            show: false
-          },
-          axisLabel: {//是否显示X轴刻度标签
-            show: false
-          },
+              axisTick: {show: false},//x轴是否显示刻度
+          axisLabel: {show: false},//是否显示X轴刻度标签
+          splitLine: {show: false},//是否显示背景网格
           data: ['金额'],
         },
         series: [
           {
             name: '支出',
             type: 'bar',
-
-            data: [18203, 23489, 29034, 104970, 131744, 630230],
+            data: [this.getMoney.totalExpenditure],
             barWidth: "4%",
-            itemStyle:{
-              borderRadius:10,
-              color:"rgba(179, 92, 98, 1)",
+            itemStyle: {
+              borderRadius: 10,
+              color: "rgba(179, 92, 98, 1)",
             },
-
-
           },
           {
             name: '收入',
             type: 'bar',
-            data: [19325, 23438, 31000, 121594, 134141, 681807],
+            data: [this.getMoney.totalRevenue],
             barWidth: "4%",
-            itemStyle:{
-              borderRadius:10,
-              color:"rgba(103, 138, 74, 1)",
+            itemStyle: {
+              borderRadius: 10,
+              color: "rgba(103, 138, 74, 1)",
             },
 
           }
@@ -115,19 +101,28 @@ export default {
           {
             name: '总计',
             type: 'bar',
-            data: [19325, 23438, 31000, 121594, 134141, 681807],
-            barGap:'500%',
+            data: [Math.abs(this.getMoney.totalBalance)],
+            barGap: '500%',
             barWidth: "4%",
-            itemStyle:{
-              borderRadius:10,
-              color:"rgba(262, 138, 2, 1)",
+            itemStyle: {
+              borderRadius: 10,
+              color: "rgba(262, 138, 2, 1)",
             },
 
           }
         ]
-
       }
+      return option
     }
+  },
+  data() {
+    return {
+      top5:0,
+    }
+  },
+  mounted() {
+    console.log(this.expenditureRerecordTop3)
+    console.log(this.revenueRerecordTop3)
   }
 
 }
@@ -145,7 +140,7 @@ export default {
 
 .top3 {
   padding: 0 16px;
-  height: 100px;
+
   width: 100%;
 
   > .top3-title {
@@ -173,13 +168,11 @@ export default {
   > .pay {
     color: rgba(179, 92, 98, 1);
   }
-
   > .balance {
-    color: rgba(103, 138, 74, 1);
-  }
-
-  > .earning {
     color: rgba(262, 138, 2, 1);
+  }
+  > .earning {
+    color: rgba(103, 138, 74, 1);
   }
 }
 
@@ -257,10 +250,12 @@ export default {
   padding: 8px 0;
   color: #bab5b5;
 
-  > ::v-deep .icon {
+  > ::v-deep span .icon {
     font-size: 30px;
+    vertical-align: middle;
   }
-  > :last-child{
+
+  > :last-child {
     min-width: 80px;
     text-align: end;
   }
